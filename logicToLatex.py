@@ -101,11 +101,11 @@ def main():
 
     n_args = 0
 
-    if args.number:
-        n_args = args.number
-        if n_args < 1:
-            print("Error: number of variables has to be greater than 0")
-            sys.exit(1)
+    if not args.number:
+        print("Error: number of variables has to be greater than 0")
+        sys.exit(1)
+
+    n_args = args.number
 
     formulas = []
 
