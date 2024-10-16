@@ -36,18 +36,38 @@ class Parser:
             if self.current_token.value == "->":
                 self.advance()
                 result = ImplicationNode(result, self.term())
+            elif self.current_token.value == "~->":
+                self.advance()
+                result = ImplicationNode(result, self.term(), True)
+            
             elif self.current_token.value == "<->":
                 self.advance()
-                result = BiconditionalNode(result, self.term())
+                result = EquivalenceNode(result, self.term())
+            elif self.current_token.value == "~<->":
+                self.advance()
+                result = EquivalenceNode(result, self.term(), True)
+
             elif self.current_token.value == "+":
                 self.advance()
                 result = ExclusiveOrNode(result, self.term())
+            elif self.current_token.value == "~+":
+                self.advance()
+                result = ExclusiveOrNode(result, self.term(), True)
+            
             elif self.current_token.value == "=":
                 self.advance()
                 result = EquivalenceNode(result, self.term())
+            elif self.current_token.value == "~=":
+                self.advance()
+                result = EquivalenceNode(result, self.term(), True)
+            
             elif self.current_token.value == "|":
                 self.advance()
                 result = DisjunctionNode(result, self.term())
+            elif self.current_token.value == "~|":
+                self.advance()
+                result = DisjunctionNode(result, self.term(), True)
+            
             else :
                 raise Exception("Error: Invalid syntax "+self.current_token.value)
 
@@ -61,6 +81,9 @@ class Parser:
             if self.current_token.type == TokenType.OPERATOR and self.current_token.value == "&":
                 self.advance()
                 result = ConjunctionNode(result, self.factor())
+            elif self.current_token.value == "~&":
+                self.advance()
+                result = ConjunctionNode(result, self.factor(), True)
 
         return result
     

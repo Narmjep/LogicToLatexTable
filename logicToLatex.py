@@ -81,6 +81,16 @@ def solve_formula(formula, vars):
         return Interpreter().visit(tree)
 
 
+def format_formula(formula):
+    res = formula.replace("!=","~=")
+    res = res.replace("!+","~+")
+    res = res.replace("!->","~->")
+    res = res.replace("!<->","~<->")
+    res = res.replace("!&","~&")
+    res = res.replace("!|","~|")
+    return res
+
+
 def main():
     argparser = argparse.ArgumentParser()
     argparser = argparse.ArgumentParser(add_help=False)
@@ -113,6 +123,7 @@ def main():
 
     else:
         formulas = args.formulas
+        print(formulas)
         formulas = ",".join(formulas).split(",")
 
 
@@ -120,11 +131,14 @@ def main():
     print_verbose("\n".join(formulas))
 
     # check for unwanted characters and print them if found
-    for formula in formulas:
+    for i in range(len(formulas)):
+        formula = formulas[i]
         for char in formula:
             if not char.isalnum() and char not in operator_chars and char not in ["(", ")", "!", " "]:
                 print(f"Error: formula contains unwanted characters: {formula}")
                 sys.exit(1)
+        formulas[i] = format_formula(formula)
+            
 
     #Get variables
     vars = get_vars(formulas)

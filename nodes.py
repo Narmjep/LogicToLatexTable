@@ -11,6 +11,7 @@ class VariableNode:
 class ConjunctionNode:
     left: VariableNode
     right: VariableNode
+    negated: bool = False
     
     def __str__(self):
         return f"({self.left} & {self.right})"
@@ -19,6 +20,7 @@ class ConjunctionNode:
 class DisjunctionNode:
     left: VariableNode
     right: VariableNode
+    negated: bool = False
     
     def __str__(self):
         return f"({self.left} | {self.right})"
@@ -27,22 +29,16 @@ class DisjunctionNode:
 class ImplicationNode:
     left: VariableNode
     right: VariableNode
+    negated: bool = False
     
     def __str__(self):
         return f"({self.left} -> {self.right})"
-
-@dataclass      
-class BiconditionalNode:
-    left: VariableNode
-    right: VariableNode
-    
-    def __str__(self):
-        return f"({self.left} <-> {self.right})"
 
 @dataclass     
 class ExclusiveOrNode:
     left: VariableNode
     right: VariableNode
+    negated: bool = False
     
     def __str__(self):
         return f"({self.left} + {self.right})"
@@ -51,6 +47,7 @@ class ExclusiveOrNode:
 class EquivalenceNode:
     left: VariableNode
     right: VariableNode
+    negated: bool = False
     
     def __str__(self):
         return f"({self.left} = {self.right})"
