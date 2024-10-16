@@ -87,7 +87,6 @@ def main():
     argparser.add_argument("-h", "--help", help="display help", action="store_true")
     argparser.add_argument("-i", "--input", help="input file")
     argparser.add_argument("-v", "--verbose", help="verbose output", action="store_true")
-    argparser.add_argument("-n", "--number", help="number of variables", type=int)
     argparser.add_argument("formulas", nargs="*")
     args = argparser.parse_args()
 
@@ -98,14 +97,6 @@ def main():
     if args.verbose:
         global verbose
         verbose = True
-
-    n_args = 0
-
-    if not args.number:
-        print("Error: number of variables has to be greater than 0")
-        sys.exit(1)
-
-    n_args = args.number
 
     formulas = []
 
@@ -135,13 +126,9 @@ def main():
                 sys.exit(1)
 
     #Get variables
-    if n_args == 0:
-        vars = get_vars(formulas)
+    vars = get_vars(formulas)
 
-    else :
-        vars = []
-        for i in range(n_args):
-            vars.append(chr(65 + i))
+
 
     print_verbose("Variables found:")
     print_verbose(vars)
