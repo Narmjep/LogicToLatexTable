@@ -90,7 +90,8 @@ def main():
     argparser.add_argument("formulas", nargs="*")
     args = argparser.parse_args()
 
-    if args.help:
+    # help or no arguments
+    if args.help or len(sys.argv) == 1:
         help()
         sys.exit(0)
 
